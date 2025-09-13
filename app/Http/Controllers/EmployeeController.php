@@ -9,10 +9,11 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+public function index()
+{
+    return view('employees.index');
+}
+
 
     /**
      * Show the form for creating a new resource.
