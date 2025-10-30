@@ -58,7 +58,7 @@
                             Data pegawai masih kosong.
                         </td>
                     </tr>
-                    @endForetel
+                    @endforelse
                 </tbody>
             </table>
         </div>
