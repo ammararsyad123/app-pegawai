@@ -62,4 +62,3 @@ class DepartmentController extends Controller
                          ->with('success', 'Departemen berhasil dihapus.');
     }
 }
-//test

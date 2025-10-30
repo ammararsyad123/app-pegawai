@@ -6,7 +6,7 @@ use App\Models\Attendance;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+//test
 class AttendanceController extends Controller
 {
     public function index()
