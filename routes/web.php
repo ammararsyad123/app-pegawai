@@ -18,8 +18,6 @@ Route::resource('positions', PositionController::class);
 Route::resource('attendance', AttendanceController::class);
 Route::resource('salaries', SalaryController::class);
 
-// -----------------------------------------------------------------
-// <-- 1. TAMBAHKAN RUTE BARU INI UNTUK AJAX
-// -----------------------------------------------------------------
+
 Route::get('/get-employee-salary/{employee}', [SalaryController::class, 'getEmployeeSalary'])
        ->name('salaries.getEmployeeSalary');

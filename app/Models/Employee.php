@@ -21,25 +21,17 @@ class Employee extends Model
         'jabatan_id',
     ];
 
-    // -----------------------------------------------------------------
-    // <-- 2. TAMBAHKAN FUNGSI RELASI INI (PENTING UNTUK AJAX)
-    // -----------------------------------------------------------------
-    
-    /**
-     * Mendapatkan data Jabatan (Position) yang dimiliki oleh Karyawan.
-     */
+
     public function position()
     {
-        // 'jabatan_id' adalah foreign key di tabel 'employees'
+
         return $this->belongsTo(Position::class, 'jabatan_id');
     }
 
-    /**
-     * Mendapatkan data Departemen (Department) yang dimiliki oleh Karyawan.
-     */
+
     public function department()
     {
-        // 'departemen_id' adalah foreign key di tabel 'employees'
+        
         return $this->belongsTo(Department::class, 'departemen_id');
     }
 }

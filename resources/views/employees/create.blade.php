@@ -13,9 +13,7 @@
             <form action="{{ route('employees.store') }}" method="POST">
                 @csrf
 
-                {{-- Menggunakan Grid System Bootstrap untuk 2 kolom --}}
                 <div class="row">
-                    {{-- Kolom Kiri --}}
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
@@ -48,12 +46,8 @@
                         </div>
                     </div>
 
-                    {{-- Kolom Kanan --}}
                     <div class="col-md-6">
                         
-                        {{-- =================================== --}}
-                        {{-- ==== 1. TAMBAHKAN DROPDOWN INI ==== --}}
-                        {{-- =================================== --}}
                         <div class="mb-3">
                             <label for="departemen_id" class="form-label">Departemen</label>
                             <select name="departemen_id" id="departemen_id" class="form-select @error('departemen_id') is-invalid @enderror" required>
@@ -69,9 +63,6 @@
                             @enderror
                         </div>
 
-                        {{-- =================================== --}}
-                        {{-- ==== 2. TAMBAHKAN DROPDOWN INI ==== --}}
-                        {{-- =================================== --}}
                         <div class="mb-3">
                             <label for="jabatan_id" class="form-label">Jabatan</label>
                             <select name="jabatan_id" id="jabatan_id" class="form-select @error('jabatan_id') is-invalid @enderror" required>
@@ -120,7 +111,6 @@
                     </div>
                 </div>
 
-                {{-- Field Alamat (lebar penuh) --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3">
@@ -135,7 +125,6 @@
                     </div>
                 </div>
 
-                {{-- Tombol Aksi --}}
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

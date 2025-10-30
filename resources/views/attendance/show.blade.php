@@ -15,29 +15,23 @@
         <div class="card-body">
             <table class="table table-borderless">
                 <tr>
-                    {{-- 1. UBAH INI --}}
                     <th style="width: 30%;">Nama Karyawan</th>
-                    {{-- 2. UBAH INI (Gunakan relasi 'employee') --}}
                     <td>: {{ $attendance->employee?->nama_lengkap ?? 'Karyawan Dihapus' }}</td>
                 </tr>
                 <tr>
                     <th style="width: 30%;">Tanggal</th>
-                    {{-- 3. UBAH INI (Format tanggal Carbon) --}}
                     <td>: {{ $attendance->tanggal->format('d F Y') }}</td>
                 </tr>
                 <tr>
                     <th style="width: 30%;">Waktu Masuk</th>
-                    {{-- 4. UBAH INI (Format waktu Carbon, cek jika null) --}}
                     <td>: {{ $attendance->waktu_masuk ? $attendance->waktu_masuk->format('H:i') . ' WIB' : '-' }}</td>
                 </tr>
                 <tr>
                     <th style="width: 30%;">Waktu Keluar</th>
-                    {{-- 4. UBAH INI (Format waktu Carbon, cek jika null) --}}
                     <td>: {{ $attendance->waktu_keluar ? $attendance->waktu_keluar->format('H:i') . ' WIB' : '-' }}</td>
                 </tr>
                 <tr>
                     <th style="width: 30%;">Status Absensi</th>
-                    {{-- 5. UBAH INI (Gunakan badge agar konsisten dengan 'index') --}}
                     <td>:
                         <span class="badge 
                             @if($attendance->status_absensi == 'hadir') text-bg-success 

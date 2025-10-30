@@ -2,49 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Position; // <-- Ganti Model
+use App\Models\Position; 
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
     public function index()
     {
-        $positions = Position::latest()->paginate(5); // <-- Ganti Model & Variabel
-        return view('positions.index', compact('positions')); // <-- Ganti View & Variabel
+        $positions = Position::latest()->paginate(5); 
+        return view('positions.index', compact('positions')); 
     }
 
     public function create()
     {
-        return view('positions.create'); // <-- Ganti View
+        return view('positions.create'); 
     }
 
     public function store(Request $request)
     {
-        // Sesuaikan validasi
+
         $request->validate([
             'nama_jabatan' => 'required|string|max:100',
             'gaji_pokok' => 'required|numeric',
         ]);
 
-        Position::create($request->all()); // <-- Ganti Model
+        Position::create($request->all()); 
 
-        return redirect()->route('positions.index') // <-- Ganti Route
+        return redirect()->route('positions.index') 
                          ->with('success', 'Jabatan berhasil ditambahkan.');
     }
 
-    public function show(Position $position) // <-- Ganti Model & Variabel
+    public function show(Position $position) 
     {
-        return view('positions.show', compact('position')); // <-- Ganti View & Variabel
+        return view('positions.show', compact('position')); 
     }
 
-    public function edit(Position $position) // <-- Ganti Model & Variabel
+    public function edit(Position $position) 
     {
-        return view('positions.edit', compact('position')); // <-- Ganti View & Variabel
+        return view('positions.edit', compact('position')); 
     }
 
-    public function update(Request $request, Position $position) // <-- Ganti Model & Variabel
+    public function update(Request $request, Position $position) 
     {
-        // Sesuaikan validasi
+
         $request->validate([
             'nama_jabatan' => 'required|string|max:100',
             'gaji_pokok' => 'required|numeric',
@@ -52,15 +52,15 @@ class PositionController extends Controller
 
         $position->update($request->all());
 
-        return redirect()->route('positions.index') // <-- Ganti Route
+        return redirect()->route('positions.index') 
                          ->with('success', 'Jabatan berhasil diperbarui.');
     }
 
-    public function destroy(Position $position) // <-- Ganti Model & Variabel
+    public function destroy(Position $position)
     {
         $position->delete();
 
-        return redirect()->route('positions.index') // <-- Ganti Route
+        return redirect()->route('positions.index') 
                          ->with('success', 'Jabatan berhasil dihapus.');
     }
 }

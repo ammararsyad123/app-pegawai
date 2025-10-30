@@ -20,14 +20,10 @@ class SalaryController extends Controller
         return view('salaries.create', compact('employees'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * 1. METHOD INI TELAH DIREVISI
-     */
+    
     public function store(Request $request)
     {
-        // Validasi dan AMBIL datanya
+
         $validatedData = $request->validate([
             'karyawan_id' => 'required|exists:employees,id', 
             'bulan' => 'required|date_format:Y-m', 
@@ -37,12 +33,11 @@ class SalaryController extends Controller
             'total_gaji' => 'required|numeric',
         ]);
 
-        // JANGAN PAKAI $request->all()
-        // Atur nilai default 0 untuk field nullable jika kosong
+
         $validatedData['tunjangan'] = $validatedData['tunjangan'] ?? 0;
         $validatedData['potongan'] = $validatedData['potongan'] ?? 0;
 
-        // Simpan data yang sudah bersih
+
         Salary::create($validatedData);
 
         return redirect()->route('salaries.index')
@@ -60,14 +55,10 @@ class SalaryController extends Controller
         return view('salaries.edit', compact('salary', 'employees'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * 2. METHOD INI TELAH DIREVISI (INI YANG ERROR DI SCREENSHOT)
-     */
+
     public function update(Request $request, Salary $salary)
     {
-        // Validasi dan AMBIL datanya
+
         $validatedData = $request->validate([
             'karyawan_id' => 'required|exists:employees,id',
             'bulan' => 'required|date_format:Y-m',
@@ -77,12 +68,11 @@ class SalaryController extends Controller
             'total_gaji' => 'required|numeric',
         ]);
 
-        // JANGAN PAKAI $request->all()
-        // Atur nilai default 0 untuk field nullable jika kosong
+
         $validatedData['tunjangan'] = $validatedData['tunjangan'] ?? 0;
         $validatedData['potongan'] = $validatedData['potongan'] ?? 0;
 
-        // Update data yang sudah bersih
+
         $salary->update($validatedData);
 
         return redirect()->route('salaries.index')
@@ -97,9 +87,7 @@ class SalaryController extends Controller
                          ->with('success', 'Gaji berhasil dihapus.');
     }
     
-    /**
-     * Method AJAX (Ini sudah benar)
-     */
+
     public function getEmployeeSalary(Employee $employee)
     {
         $employee->load('position');

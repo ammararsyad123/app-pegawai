@@ -14,9 +14,7 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Menggunakan Grid System Bootstrap untuk 2 kolom --}}
                 <div class="row">
-                    {{-- Kolom Kiri --}}
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
@@ -49,18 +47,12 @@
                         </div>
                     </div>
 
-                    {{-- Kolom Kanan --}}
                     <div class="col-md-6">
 
-                        {{-- =================================== --}}
-                        {{-- ==== 1. TAMBAHKAN DROPDOWN INI ==== --}}
-                        {{-- =================================== --}}
                         <div class="mb-3">
                             <label for="departemen_id" class="form-label">Departemen</label>
                             <select name="departemen_id" id="departemen_id" class="form-select @error('departemen_id') is-invalid @enderror" required>
-                                {{-- Loop untuk menampilkan semua departemen --}}
                                 @foreach($departments as $dept)
-                                    {{-- Cek apakah departemen ini adalah departemen yg sedang dipilih oleh pegawai --}}
                                     <option value="{{ $dept->id }}" {{ old('departemen_id', $employee->departemen_id) == $dept->id ? 'selected' : '' }}>
                                         {{ $dept->nama_departemen }}
                                     </option>
@@ -71,15 +63,10 @@
                             @enderror
                         </div>
 
-                        {{-- =================================== --}}
-                        {{-- ==== 2. TAMBAHKAN DROPDOWN INI ==== --}}
-                        {{-- =================================== --}}
                         <div class="mb-3">
                             <label for="jabatan_id" class="form-label">Jabatan</label>
                             <select name="jabatan_id" id="jabatan_id" class="form-select @error('jabatan_id') is-invalid @enderror" required>
-                                {{-- Loop untuk menampilkan semua jabatan --}}
                                 @foreach($positions as $pos)
-                                    {{-- Cek apakah jabatan ini adalah jabatan yg sedang dipilih oleh pegawai --}}
                                     <option value="{{ $pos->id }}" {{ old('jabatan_id', $employee->jabatan_id) == $pos->id ? 'selected' : '' }}>
                                         {{ $pos->nama_jabatan }}
                                     </option>
@@ -124,7 +111,6 @@
                     </div>
                 </div>
 
-                {{-- Field Alamat (lebar penuh) --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3">
@@ -139,7 +125,6 @@
                     </div>
                 </div>
 
-                {{-- Tombol Aksi --}}
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">Update Data</button>
                 </div>

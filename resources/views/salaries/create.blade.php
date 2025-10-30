@@ -15,7 +15,6 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        {{-- Dropdown Karyawan (Ini sudah benar dari kode Anda) --}}
                         <div class="mb-3">
                             <label for="karyawan_id" class="form-label">Nama Karyawan</label>
                             <select id="karyawan_id" name="karyawan_id" class="form-select @error('karyawan_id') is-invalid @enderror" required>
@@ -31,7 +30,6 @@
                             @enderror
                         </div>
 
-                        {{-- 1. UBAH input 'bulan' menjadi 'type="month"' agar sesuai validasi 'Y-m' --}}
                         <div class="mb-3">
                             <label for="bulan" class="form-label">Bulan (Contoh: 2025-10)</label>
                             <input type="month" id="bulan" name="bulan" 
@@ -42,13 +40,12 @@
                             @enderror
                         </div>
 
-                        {{-- 2. UBAH input 'gaji_pokok' (tambah 'readonly' dan 'value="0"') --}}
                         <div class="mb-3">
                             <label for="gaji_pokok" class="form-label">Gaji Pokok</label>
                             <input type="number" id="gaji_pokok" name="gaji_pokok" 
                                    class="form-control @error('gaji_pokok') is-invalid @enderror" 
                                    value="{{ old('gaji_pokok', 0) }}" required 
-                                   readonly> {{-- 'readonly' agar diisi otomatis oleh AJAX --}}
+                                   readonly> 
                             @error('gaji_pokok')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -56,7 +53,6 @@
                     </div>
 
                     <div class="col-md-6">
-                        {{-- 3. Input 'tunjangan' (value="0" sudah benar) --}}
                         <div class="mb-3">
                             <label for="tunjangan" class="form-label">Tunjangan</label>
                             <input type="number" id="tunjangan" name="tunjangan" 
@@ -67,7 +63,6 @@
                             @enderror
                         </div>
 
-                        {{-- 4. Input 'potongan' (value="0" sudah benar) --}}
                         <div class="mb-3">
                             <label for="potongan" class.form-label">Potongan</label>
                             <input type="number" id="potongan" name="potongan" 
@@ -78,12 +73,9 @@
                             @enderror
                         </div>
                         
-                        {{-- 5. UBAH SELURUH BLOK 'total_gaji' --}}
                         <div class="mb-3">
                             <label class="form-label">Total Gaji (Otomatis)</label>
-                            {{-- Ini untuk TAMPILAN (misal: Rp 12.000.000) --}}
                             <h3 id="total_gaji_display" class="fw-bold text-success">Rp 0</h3>
-                            {{-- Ini untuk DIKIRIM ke Controller (wajib ada karena validasi) --}}
                             <input type="hidden" id="total_gaji" name="total_gaji" value="{{ old('total_gaji', 0) }}">
                             @error('total_gaji')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -101,36 +93,28 @@
     </div>
 @endsection
 
-{{-- 6. TAMBAHKAN SELURUH BLOK SCRIPT INI DI LUAR @section('content') --}}
 @push('scripts')
 <script>
-    // Pastikan script berjalan setelah halaman (DOM) dimuat
     document.addEventListener('DOMContentLoaded', function() {
         
-        // Ambil semua elemen input yang kita butuhkan
         const karyawanSelect = document.getElementById('karyawan_id');
         const gajiPokokInput = document.getElementById('gaji_pokok');
         const tunjanganInput = document.getElementById('tunjangan');
         const potonganInput = document.getElementById('potongan');
-        const totalGajiInput = document.getElementById('total_gaji'); // Input hidden
-        const totalGajiDisplay = document.getElementById('total_gaji_display'); // Tampilan <h3>
+        const totalGajiInput = document.getElementById('total_gaji'); 
+        const totalGajiDisplay = document.getElementById('total_gaji_display'); 
 
-        // --- Fitur 1: Ambil Gaji Pokok saat Karyawan Dipilih (AJAX) ---
         karyawanSelect.addEventListener('change', function() {
             const employeeId = this.value;
 
-            // Jika tidak ada karyawan dipilih, reset
             if (!employeeId) {
                 gajiPokokInput.value = 0;
                 hitungTotal();
                 return;
             }
 
-            // Buat URL yang benar menggunakan helper 'route' Laravel
-            // Ini akan memanggil route 'salaries.getEmployeeSalary'
             const url = '{{ route("salaries.getEmployeeSalary", ["employee" => ":id"]) }}'.replace(':id', employeeId);
 
-            // Lakukan AJAX (Fetch API)
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
@@ -139,10 +123,7 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Masukkan gaji pokok ke input
                     gajiPokokInput.value = data.gaji_pokok;
-                    
-                    // Langsung panggil fungsi hitungTotal() setelah Gaji Pokok didapat
                     hitungTotal(); 
                 })
                 .catch(error => {
@@ -152,28 +133,18 @@
                 });
         });
 
-        // --- Fitur 2: Hitung Total Gaji saat Tunjangan/Potongan Diubah ---
-        
-        // Tambahkan listener ke input tunjangan dan potongan
         tunjanganInput.addEventListener('input', hitungTotal);
         potonganInput.addEventListener('input', hitungTotal);
-        // (Kita tidak perlu listener di gaji_pokok karena 'readonly')
 
-        // Fungsi utama untuk menghitung total
         function hitungTotal() {
-            // Ambil nilai sebagai angka (parseFloat)
-            // '|| 0' digunakan jika inputnya kosong (NaN)
             const pokok = parseFloat(gajiPokokInput.value) || 0;
             const tunjangan = parseFloat(tunjanganInput.value) || 0;
             const potongan = parseFloat(potonganInput.value) || 0;
 
             const total = pokok + tunjangan - potongan;
 
-            // 1. Update input hidden untuk dikirim ke controller
             totalGajiInput.value = total;
 
-            // 2. Update tampilan agar terlihat cantik (format Rupiah)
-            // Ini akan mengubah "12000000" menjadi "Rp 12.000.000"
             totalGajiDisplay.innerText = new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
@@ -181,8 +152,6 @@
             }).format(total);
         }
 
-        // Panggil fungsi hitungTotal() saat halaman pertama kali dimuat
-        // Ini untuk menangani jika ada 'old' value (misal setelah validasi gagal)
         hitungTotal(); 
     });
 </script>

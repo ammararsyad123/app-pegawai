@@ -14,7 +14,6 @@
                 @csrf
 
                 <div class="row">
-                    {{-- Kita hanya butuh satu field --}}
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="nama_departemen" class="form-label">Nama Departemen</label>
@@ -28,7 +27,6 @@
                     </div>
                 </div>
 
-                {{-- Tombol Aksi --}}
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

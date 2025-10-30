@@ -15,7 +15,6 @@
             <table class="table table-striped table-hover align-middle">
                 <thead>
                     <tr>
-                        {{-- KITA UBAH JUDULNYA --}}
                         <th>Nama Karyawan</th>
                         <th>Tanggal</th>
                         <th>Waktu Masuk</th>
@@ -27,36 +26,26 @@
                 <tbody>
                     @forelse($attendances as $att)
                     <tr>
-                        {{-- 1. UBAH INI: Tampilkan nama, bukan ID --}}
                         <td>
-                            {{-- Kita panggil relasi 'employee' dan kolom 'nama_lengkap' --}}
-                            {{-- Tambahkan '?' (optional) jika karyawan mungkin sudah dihapus --}}
                             {{ $att->employee?->nama_lengkap ?? 'Karyawan Dihapus' }}
                         </td>
                         
-                        {{-- 2. UBAH INI: Format tanggal --}}
                         <td>
-                            {{-- Karena $casts di Model, $att->tanggal sekarang adalah objek Carbon --}}
                             {{ $att->tanggal->format('d/m/Y') }}
                         </td>
                         
-                        {{-- 3. UBAH INI: Format waktu masuk --}}
                         <td>
-                            {{-- Cek dulu apakah $att->waktu_masuk ada (tidak null) --}}
                             {{ $att->waktu_masuk ? $att->waktu_masuk->format('H:i') : '-' }}
                         </td>
                         
-                        {{-- 4. UBAH INI: Format waktu keluar --}}
                         <td>
                             {{ $att->waktu_keluar ? $att->waktu_keluar->format('H:i') : '-' }}
-                            {{-- Bonus: Beri tanda jika beda hari --}}
                             @if($att->waktu_keluar && $att->waktu_keluar->isNextDay($att->waktu_masuk))
                                 <span class="badge text-bg-secondary ms-1" title="Absen di hari berikutnya">+1</span>
                             @endif
                         </td>
 
                         <td>
-                            {{-- (Kode badge Anda sudah benar) --}}
                             <span class="badge 
                                 @if($att->status_absensi == 'hadir') text-bg-success 
                                 @elseif($att->status_absensi == 'sakit') text-bg-warning 
@@ -66,7 +55,6 @@
                             </span>
                         </td>
                         <td>
-                            {{-- (Kode aksi Anda sudah benar) --}}
                             <form action="{{ route('attendance.destroy', $att->id) }}" method="POST" class="d-inline-block">
                                 <a href="{{ route('attendance.show', $att->id) }}" class="btn btn-info btn-sm" title="Detail">
                                     <i class="bi bi-eye"></i>
@@ -84,7 +72,6 @@
                     </tr>
                     @empty
                     <tr>
-                        {{-- (Colspan Anda sudah benar) --}}
                         <td colspan="6" class="text-center py-4">
                             Data absensi masih kosong.
                         </td>

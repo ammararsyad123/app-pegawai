@@ -23,22 +23,18 @@ class AttendanceController extends Controller
 
     public function store(Request $request)
     {
-        // ==========================================================
-        // PERBAIKAN VALIDASI (store)
-        // ==========================================================
+
         $validatedData = $request->validate([
             'karyawan_id' => 'required|exists:employees,id',
             'tanggal' => 'required|date',
-            
-            // Gunakan 'required_if' agar hanya wajib jika status 'hadir'
+
+
             'waktu_masuk' => 'required_if:status_absensi,hadir|nullable|date_format:H:i',
             'waktu_keluar' => 'required_if:status_absensi,hadir|nullable|date_format:H:i',
 
             'status_absensi' => 'required|in:hadir,sakit,izin,alpha',
         ]);
-        // ==========================================================
-        // AKHIR PERBAIKAN
-        // ==========================================================
+
 
         $dataToCreate = [
             'karyawan_id' => $validatedData['karyawan_id'],
@@ -80,22 +76,18 @@ class AttendanceController extends Controller
 
     public function update(Request $request, Attendance $attendance)
     {
-        // ==========================================================
-        // PERBAIKAN VALIDASI (update)
-        // ==========================================================
+
         $validatedData = $request->validate([
             'karyawan_id' => 'required|exists:employees,id',
             'tanggal' => 'required|date',
 
-            // Gunakan 'required_if' agar hanya wajib jika status 'hadir'
+            
             'waktu_masuk' => 'required_if:status_absensi,hadir|nullable|date_format:H:i',
             'waktu_keluar' => 'required_if:status_absensi,hadir|nullable|date_format:H:i',
 
             'status_absensi' => 'required|in:hadir,sakit,izin,alpha',
         ]);
-        // ==========================================================
-        // AKHIR PERBAIKAN
-        // ==========================================================
+
 
         $dataToUpdate = [
             'karyawan_id' => $validatedData['karyawan_id'],

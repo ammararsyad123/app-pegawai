@@ -15,7 +15,6 @@
             <table class="table table-striped table-hover align-middle">
                 <thead>
                     <tr>
-                        {{-- 1. UBAH JUDUL KOLOM --}}
                         <th>Nama Karyawan</th>
                         <th>Bulan</th>
                         <th>Gaji Pokok</th>
@@ -28,20 +27,17 @@
                 <tbody>
                     @forelse($salaries as $salary)
                     <tr>
-                        {{-- 2. TAMPILKAN NAMA (dari relasi 'employee') --}}
                         <td>
                             {{ $salary->employee?->nama_lengkap ?? 'Karyawan Dihapus' }}
                         </td>
                         <td>{{ $salary->bulan }}</td>
                         
-                        {{-- 3. FORMAT ANGKA MENJADI RUPIAH --}}
                         <td>Rp {{ number_format($salary->gaji_pokok, 0, ',', '.') }}</td>
                         <td>Rp {{ number_format($salary->tunjangan, 0, ',', '.') }}</td>
                         <td>Rp {{ number_format($salary->potongan, 0, ',', '.') }}</td>
                         <td class="fw-bold">Rp {{ number_format($salary->total_gaji, 0, ',', '.') }}</td>
                         
                         <td>
-                            {{-- (Kode aksi Anda) --}}
                             <form action="{{ route('salaries.destroy', $salary->id) }}" method="POST" class="d-inline-block">
                                 <a href="{{ route('salaries.show', $salary->id) }}" class="btn btn-info btn-sm" title="Detail">
                                     <i class="bi bi-eye"></i>
@@ -59,7 +55,6 @@
                     </tr>
                     @empty
                     <tr>
-                        {{-- 4. SESUAIKAN COLSPAN --}}
                         <td colspan="7" class="text-center py-4">
                             Data gaji masih kosong.
                         </td>

@@ -88,41 +88,32 @@
     </div>
 @endsection
 
-{{-- ========================================================== --}}
-{{-- TAMBAHKAN KODE INI DI PALING BAWAH --}}
-{{-- ========================================================== --}}
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         
-        // Ambil elemen-elemen yang kita butuhkan
         const statusSelect = document.getElementById('status_absensi');
         const waktuMasukInput = document.getElementById('waktu_masuk');
         const waktuKeluarInput = document.getElementById('waktu_keluar');
 
-        // Buat fungsi untuk mengecek status
         function toggleTimeInputs() {
             const status = statusSelect.value;
             
-            // Jika status BUKAN 'hadir'
             if (status !== 'hadir') {
-                // Nonaktifkan field
                 waktuMasukInput.disabled = true;
                 waktuKeluarInput.disabled = true;
                 
-                // Kosongkan nilainya
                 waktuMasukInput.value = '';
                 waktuKeluarInput.value = '';
             } else {
-                // Jika 'hadir', aktifkan kembali
                 waktuMasukInput.disabled = false;
                 waktuKeluarInput.disabled = false;
             }
         }
 
-        // Jalankan fungsi saat ada perubahan pada dropdown
         statusSelect.addEventListener('change', toggleTimeInputs);
         
-        // Jalankan fungsi saat halaman pertama kali dimuat
         toggleTimeInputs();
     });
 </script>
+@endpush

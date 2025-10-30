@@ -15,9 +15,7 @@
         <div class="card-body">
             <table class="table table-borderless">
                 <tr>
-                    {{-- 1. UBAH INI --}}
                     <th style="width: 30%;">Nama Karyawan</th>
-                    {{-- 2. UBAH INI (Gunakan relasi 'employee') --}}
                     <td>: {{ $salary->employee?->nama_lengkap ?? 'Karyawan Dihapus' }}</td>
                 </tr>
                 <tr>
@@ -26,22 +24,18 @@
                 </tr>
                 <tr>
                     <th style="width: 30%;">Gaji Pokok</th>
-                    {{-- 3. UBAH INI (Format Rupiah, 0 desimal) --}}
                     <td>: Rp {{ number_format($salary->gaji_pokok, 0, ',', '.') }}</td>
                 </tr>
                 <tr>
                     <th style="width: 30%;">Tunjangan</th>
-                    {{-- 3. UBAH INI (Format Rupiah, 0 desimal) --}}
                     <td>: Rp {{ number_format($salary->tunjangan, 0, ',', '.') }}</td>
                 </tr>
                 <tr>
                     <th style="width: 30%;">Potongan</th>
-                    {{-- 3. UBAH INI (Format Rupiah, 0 desimal) --}}
                     <td>: Rp {{ number_format($salary->potongan, 0, ',', '.') }}</td>
                 </tr>
                 <tr>
                     <th style="width: 30%;">Total Gaji</th>
-                    {{-- 3. UBAH INI (Format Rupiah, 0 desimal) --}}
                     <td class="fw-bold">: Rp {{ number_format($salary->total_gaji, 0, ',', '.') }}</td>
                 </tr>
             </table>
