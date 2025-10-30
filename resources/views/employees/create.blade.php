@@ -50,6 +50,43 @@
 
                     {{-- Kolom Kanan --}}
                     <div class="col-md-6">
+                        
+                        {{-- =================================== --}}
+                        {{-- ==== 1. TAMBAHKAN DROPDOWN INI ==== --}}
+                        {{-- =================================== --}}
+                        <div class="mb-3">
+                            <label for="departemen_id" class="form-label">Departemen</label>
+                            <select name="departemen_id" id="departemen_id" class="form-select @error('departemen_id') is-invalid @enderror" required>
+                                <option value="" disabled selected>Pilih Departemen</option>
+                                @foreach($departments as $dept)
+                                    <option value="{{ $dept->id }}" {{ old('departemen_id') == $dept->id ? 'selected' : '' }}>
+                                        {{ $dept->nama_departemen }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('departemen_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- =================================== --}}
+                        {{-- ==== 2. TAMBAHKAN DROPDOWN INI ==== --}}
+                        {{-- =================================== --}}
+                        <div class="mb-3">
+                            <label for="jabatan_id" class="form-label">Jabatan</label>
+                            <select name="jabatan_id" id="jabatan_id" class="form-select @error('jabatan_id') is-invalid @enderror" required>
+                                <option value="" disabled selected>Pilih Jabatan</option>
+                                @foreach($positions as $pos)
+                                    <option value="{{ $pos->id }}" {{ old('jabatan_id') == $pos->id ? 'selected' : '' }}>
+                                        {{ $pos->nama_jabatan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('jabatan_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
                             <input type="date" id="tanggal_lahir" name="tanggal_lahir" 

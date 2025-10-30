@@ -51,6 +51,46 @@
 
                     {{-- Kolom Kanan --}}
                     <div class="col-md-6">
+
+                        {{-- =================================== --}}
+                        {{-- ==== 1. TAMBAHKAN DROPDOWN INI ==== --}}
+                        {{-- =================================== --}}
+                        <div class="mb-3">
+                            <label for="departemen_id" class="form-label">Departemen</label>
+                            <select name="departemen_id" id="departemen_id" class="form-select @error('departemen_id') is-invalid @enderror" required>
+                                {{-- Loop untuk menampilkan semua departemen --}}
+                                @foreach($departments as $dept)
+                                    {{-- Cek apakah departemen ini adalah departemen yg sedang dipilih oleh pegawai --}}
+                                    <option value="{{ $dept->id }}" {{ old('departemen_id', $employee->departemen_id) == $dept->id ? 'selected' : '' }}>
+                                        {{ $dept->nama_departemen }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('departemen_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- =================================== --}}
+                        {{-- ==== 2. TAMBAHKAN DROPDOWN INI ==== --}}
+                        {{-- =================================== --}}
+                        <div class="mb-3">
+                            <label for="jabatan_id" class="form-label">Jabatan</label>
+                            <select name="jabatan_id" id="jabatan_id" class="form-select @error('jabatan_id') is-invalid @enderror" required>
+                                {{-- Loop untuk menampilkan semua jabatan --}}
+                                @foreach($positions as $pos)
+                                    {{-- Cek apakah jabatan ini adalah jabatan yg sedang dipilih oleh pegawai --}}
+                                    <option value="{{ $pos->id }}" {{ old('jabatan_id', $employee->jabatan_id) == $pos->id ? 'selected' : '' }}>
+                                        {{ $pos->nama_jabatan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('jabatan_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+
                         <div class="mb-3">
                             <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
                             <input type="date" id="tanggal_lahir" name="tanggal_lahir" 
@@ -75,7 +115,7 @@
                             <label for="status" class="form-label">Status</label>
                             <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
                                 <option value="aktif" {{ old('status', $employee->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="nonaktif" {{ old('status', 'nonaktif') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                                <option value="nonaktif" {{ old('status', $employee->status) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
                             </select>
                             @error('status')
                                 <div class="invalid-feedback">{{ $message }}</div>

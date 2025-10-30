@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_jabatan', 100);       
+            $table->bigInteger('gaji_pokok');
             $table->timestamps();
         });
     }
@@ -25,3 +27,4 @@ return new class extends Migration
         Schema::dropIfExists('positions');
     }
 };
+

@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model
 {
-    public function up(): void
-    {
-            Schema::create('positions', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_jabatan', 100);
-            $table->decimal('gaji_pokok', 10, 2);
-            $table->timestamps();
-        });
-    }
+    use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'nama_jabatan',
+        'gaji_pokok',
+    ];
 }

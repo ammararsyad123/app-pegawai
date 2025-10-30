@@ -11,19 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('attendance', function (Blueprint $table) {
-                $table->id();
-                $table->unsignedBigInteger('karyawan_id');
-                $table->date('tanggal');
-                $table->time('waktu_masuk')->nullable();
-                $table->time('waktu_keluar')->nullable();
-                $table->enum('status_absensi', ['hadir', 'izin', 'sakit', 'alpha']);
-                $table->timestamps();
-                // Foreign key constraint
-                $table->foreign('karyawan_id')
-                ->references('id')
-                ->on('employees')
-                ->onDelete('cascade');
+        Schema::create('attendance', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('karyawan_id');
+            $table->date('tanggal');
+            
+            // ==========================================================
+            // PERBAIKAN: Tambahkan ->nullable() di sini
+            // ==========================================================
+            $table->datetime('waktu_masuk')->nullable(); 
+            
+            $table->datetime('waktu_keluar')->nullable(); // (Ini sudah benar)
+            $table->enum('status_absensi', ['hadir', 'izin', 'sakit', 'alpha']);
+            $table->timestamps();
+            
+            // Foreign key constraint
+            $table->foreign('karyawan_id')
+                  ->references('id')
+                  ->on('employees')
+                  ->onDelete('cascade');
         });
     }
 
@@ -32,6 +38,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendance_tabel');
+        // ==========================================================
+        // PERBAIKAN: Perbaiki typo 'attendance_tabel' menjadi 'attendance'
+        // ==========================================================
+        Schema::dropIfExists('attendance');
     }
 };
